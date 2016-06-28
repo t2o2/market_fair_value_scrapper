@@ -8,11 +8,12 @@
 #     browser.visit(url)
 #
 
-import urllib.request
+import urllib
 from PIL import Image
 import pytesseract
 import re
 import os
+import collections
 
 overall_list = [
     # Super Sector
@@ -192,14 +193,20 @@ overall_list = [
     'Solar',
 ]
 
+directory = 'output'
+
+if not os.path.exists(directory):
+    os.makedirs(directory)
+
 overview = {}
 for name in overall_list:
     print(name)
-    with open(name + '.png', "wb") as f:
+    file_path = os.path.join(directory, name + '.png')
+    with open(file_path, "wb") as f:
         url_name = name.replace(' ', '%20').replace('&', '!')
         url = 'http://www.morningstar.com/market-valuation/market_valuation_graph.aspx?Ticker=' + url_name + '&Period=AL'
-        f.write(urllib.request.urlopen(url).read())
-    im = Image.open(name + '.png')
+        f.write(urllib.urlopen(url).read())
+    im = Image.open(file_path)
     if im.size[0] > 185:
         im = im.crop([0, 0, 190, 25])
     text = pytesseract.image_to_string(im)
@@ -211,6 +218,9 @@ for name in overall_list:
         overview[name] = 0
         print(text)
 
+sorted_overview = collections.OrderedDict(sorted(overview.items()))
 with open('result.csv', 'w') as f:
-    for key, value in overview.items():
+    for key, value in sorted_overview.items():
         f.write(key + ',' + str(value) + '\n')
+
+
