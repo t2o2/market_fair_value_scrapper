@@ -12,6 +12,7 @@ import urllib.request
 from PIL import Image
 import pytesseract
 import re
+import os
 
 overall_list = [
     # Super Sector
