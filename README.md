@@ -1,3 +1,9 @@
 # Market Fair Value Scrapper
 
-run fv_scrapper.py to get all the fair value presented in Morningstar website.
+Prerequisite:
+Python 2.7
+urllib
+tesseract-ocr
+pytesseract
+
+Execute fv_scrapper.py to get all the fair value presented in Morningstar website.
