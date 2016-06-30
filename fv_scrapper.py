@@ -8,12 +8,13 @@
 #     browser.visit(url)
 #
 
-import urllib
 from PIL import Image
+import urllib
 import pytesseract
 import re
 import os
 import collections
+import json
 
 overall_list = [
     # Super Sector
@@ -223,4 +224,6 @@ with open('result.csv', 'w') as f:
     for key, value in sorted_overview.items():
         f.write(key + ',' + str(value) + '\n')
 
+with open('fair_value.json', 'w') as f:
+    json.dump(sorted_overview, f, sort_keys=True, indent=4)
 
