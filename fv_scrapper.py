@@ -209,9 +209,9 @@ for name in overall_list:
         f.write(urllib.urlopen(url).read())
     im = Image.open(file_path)
     if im.size[0] > 185:
-        im = im.crop([0, 0, 190, 25])
+        im = im.crop([132, 0, 190, 25])
     text = pytesseract.image_to_string(im)
-    pattern = re.compile(" (\d|l). ?(l|\d)(l|\d)")
+    pattern = re.compile("(\d|l). ?(l|\d)(l|\d)")
     result = pattern.search(text)
     if result is not None:
         overview[name] = float(result.group(0).replace(' ', '').replace('l', '1'))
