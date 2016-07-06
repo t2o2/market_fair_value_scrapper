@@ -15,6 +15,7 @@ import re
 import os
 import collections
 import json
+from shutil import copy 
 
 overall_list = [
     # Super Sector
@@ -227,3 +228,4 @@ with open('result.csv', 'w') as f:
 with open('fair_value.json', 'w') as f:
     json.dump(sorted_overview, f, sort_keys=True, indent=4)
 
+copy('fair_value.json', '../indexinfo/static/fair_value')
